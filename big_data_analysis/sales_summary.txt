@@ -1,5 +1,8 @@
-the higest selling product is : ['Coffee'] 
-The data for the highest selling product is:
-       Area Code       State Market   Market Size  Profit  Margin  Sales   COGS  Total Expenses  Marketing  Inventory  Budget Profit  Budget COGS  Budget Margin  Budget Sales  ProductId               Date Product Type    Product     Type
-2815        707  California   West  Major Market   370.0   548.0  912.0  364.0           178.0      127.0     2654.0          530.0        450.0          690.0        1140.0          2  07/01/10 00:00:00       Coffee  Columbian  Regular
-3612        845    New York   East  Major Market   370.0   548.0  912.0  364.0           178.0      127.0     2654.0          370.0        340.0          520.0         860.0          2  07/01/10 00:00:00       Coffee  Columbian  Regular
+Highest Selling Day is : 
+      Area Code       State Market   Market Size  Profit  Margin  Sales   COGS  Total Expenses  Marketing  Inventory  Budget Profit  Budget COGS  Budget Margin  Budget Sales  ProductId      Date Product Type    Product     Type
+2815        707  California   West  Major Market   370.0   548.0  912.0  364.0           178.0      127.0     2654.0          530.0        450.0          690.0        1140.0          2  07/01/10       Coffee  Columbian  Regular
+3612        845    New York   East  Major Market   370.0   548.0  912.0  364.0           178.0      127.0     2654.0          370.0        340.0          520.0         860.0          2  07/01/10       Coffee  Columbian  Regular
+Product with the highest sales is 'Coffee'
+The day with the most sales is : 2815    07/01/10
+3612    07/01/10
+Name: Date, dtype: object

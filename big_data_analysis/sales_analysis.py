@@ -14,76 +14,85 @@ Save the results to a new file called sales_summary.txt.
 Print the insights in a user-friendly format.
 """
 
-
 import pandas as pd
 import matplotlib.pyplot as plt
+import numpy as np
 import seaborn as sns
-data_df = pd.read_csv("./data/sales.csv")
+
+data_df = pd.read_csv('./data/sales.csv')
 print(data_df)
 
-# for item in data_df.columns:
-#     print(item)
 
 
-# DATA PREPROCESSING
-# print(data_df.isna().sum()) # no null values
+# data preprocessing
+# print(data_df.isna().sum()) # no null things
 
-# print(data_df.info())
+# print(data_df.columns)
+# print(data_df.info()) 
+data_df['Date'] = data_df['Date'].replace('.00:00:00', "", regex=True)
 
 
+# total revenue
+total_revenue = data_df['Sales'].sum()
+print(f'Total Sales are : {total_revenue}')
 
-# get statistics
+# Find the best-selling product (based on Quantity So
+highest_selling_day_product = data_df[data_df['Sales'] == data_df['Sales'].max()]
+print(highest_selling_day_product)
 
-#  get number of products being sold
-print(data_df["Product Type"].value_counts())
 
-print(len(data_df["Product Type"]))
+highest_selling_product = highest_selling_day_product['Product Type']
+highest_product = highest_selling_day_product['Product Type']
+print(type(highest_product))
+highest_product = highest_product.unique()
+highest_product = np.array2string(highest_product)
+highest_product = highest_product.strip('[]')
 
-print(data_df["Product Type"].isna())
-sns.countplot(y=data_df["Product Type"], data=data_df, hue='Product Type')
-plt.title('Product Type Sales')
-# plt.savefig('product_type_value_counts_bar_chart.png')
+print(f'The highest selling product is {highest_product}')
 
+
+# Identify the day with the highest sales
+# print(data_df['Date'])
+
+print(highest_selling_day_product['Date'])
+
+
+# visualization(EDA)
+# provide visualization for the product Type
+product_value_counts = data_df['Product Type'].value_counts() # returns index and counts series
+print(product_value_counts)
+
+# data_df['Product Type'].value_counts().plot(kind='bar')
 # plt.show()
 
-# plotting using pie chart
-product_value_counts = data_df["Product Type"].value_counts()
-print(product_value_counts.index) # list
-print(product_value_counts.values) # list
+sns.countplot(data=data_df, y=data_df['Product Type'], orient='x', hue='Product Type')
+plt.title('Product Type Distribution')
+plt.legend(product_value_counts.index)
+plt.savefig("./product_type_value_counts_bar_chart.png")
+plt.show()
 
 
-fig, ax = plt.subplots(figsize=(8,10))
-ax.pie(
-    product_value_counts.values,
-    labels=product_value_counts.index,
-    autopct="%1.1f%%"
-)
-ax.axis('equal')
-ax.set_title('Product Type Purchase Sales')
-plt.legend(product_value_counts.index, loc='upper right')
-# plt.savefig('product_type_value_counts_pie_chart.png')
-# plt.show()
+# pie chart
+plt.figure(figsize=(8,8))
+plt.pie(x=product_value_counts.values, labels=product_value_counts.index, autopct="%1.1f%%")
+plt.title("Product Type Distribution")
+plt.savefig("product_type_value_counts_pie_chart.png")
+plt.show()
+
+print(type(product_value_counts.index))
+print(type(product_value_counts.values))
 
 
-# highest selling product
-sales_sum = data_df['Sales'].sum()
-print(f'The total value of sales is : {sales_sum}') 
 
 
-# get highest sales
-max_sales_row = data_df[data_df['Sales'] == data_df['Sales'].max()]
-print(max_sales_row) # 2 max rows
-
-# print(max_sales_row['Product Type'].unique())
-
-highest_selling_product = max_sales_row['Product Type'].unique()
-print(f'Item in highest_selling_product is {highest_selling_product}')
-
+# save the results to a new file:
 try:
     with open('sales_summary.txt', 'w') as file:
-        highest_selling_product_row = max_sales_row.to_string()
-        file.write(f"the higest selling product is : {highest_selling_product} \n" 
-                   f"The data for the highest selling product is:\n {highest_selling_product_row}"
-        ) 
+        max_row = highest_selling_day_product.to_string()
+        file.write(
+            f"Highest Selling Day is : \n{max_row}\n"
+            f"Product with the highest sales is {highest_product}\n"
+            f"The day with the most sales is : {highest_selling_day_product['Date']}"
+        )
 except Exception as e:
-    print(f"ERROR : {e}")
+    print(f'Error ! : {e}')
