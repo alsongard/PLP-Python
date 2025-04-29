@@ -1,0 +1,9 @@
+# Created by venv; see https://docs.python.org/3/library/venv.html
+big_data_analysis/bin/
+big_data_analysis/etc/
+big_data_analysis/include/
+big_data_analysis/lib/
+big_data_analysis/share/
+/big_data_analysis/lib64
+
+/big_data_analysis/pyvenv.cfg
